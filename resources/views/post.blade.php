@@ -9,7 +9,7 @@
                 <h3 class="mb-2 text-2xl tracking-tight font-bold text-gray-800">{{ $post['title'] }}</h3>
 
             <div class="text-base text-gray-500">
-                <a href="#">{{ $post['author'] }}</a> | 1 January 2024
+                <a href="#">{{ $post['author'] }}</a> | {{ $post->created_at->diffForHumans() }}
             </div>
             <p class="my-4 font-light">
                 {{ $post['body'] }}

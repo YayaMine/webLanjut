@@ -17,11 +17,9 @@ Route::get('/about', function () {
 });
 
 // wildcard
-Route::get('/blog/{slug}', function($slug) {
-   
-    $blog = Post::find($slug);
+Route::get('/blog/{post:slug}', function(Post $post) {
 
-    return view('post', ['title' => 'Single Blog', 'post' => $blog]);
+    return view('post', ['title' => 'Single Blog', 'post' => $post]);
 });
 
 Route::get('/blogs', function () {
