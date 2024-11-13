@@ -6,7 +6,14 @@ Route::get('/', function () {
     return view('home');
 });
 
-
 Route::get('/about', function () {
-    return view('about', ['nama' => 'Fajar']);
+    return view('about', ['nama' => 'Heisenberg']);
+});
+
+Route::get('/blog', function () {
+    return view('blog');
+});
+
+Route::get('/contact', function () {
+    return view('contact');
 });
