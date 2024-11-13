@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +17,27 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+
+        // Buat 3 kategori dan 5 user terlebih dahulu
+        // $categories = Category::factory(3)->create();
+        // $users = User::factory(5)->create();
+
+        // // Gunakan kategori dan user yang sudah dibuat untuk Post dengan recycle
+        // Post::factory(100)
+        //     ->recycle($categories)
+        //     ->recycle($users)
+        //     ->create();
+
+        $this->call([CategorySeeder::class, UserSeeder::class]);
+
+        Post::factory(100)->recycle([
+            Category::all(),
+            User::all()
+        ])->create();
     }
 }

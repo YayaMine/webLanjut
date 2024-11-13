@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Str;
 
@@ -22,8 +23,10 @@ class PostFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'author_id' => User::factory(),
+            'category_id' => Category::factory(),
             'slug' => Str::slug(fake()->sentence()),
             'body' => fake()->text(),
         ];
     }
+    // App\Models\Post::factory(100)->recycle([App\Models\Category::factory(3)->create, App\Models\User::factory(5)->create()])->create()
 }

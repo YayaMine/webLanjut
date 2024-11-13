@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Arr;
@@ -23,9 +24,14 @@ Route::get('/blog/{post:slug}', function(Post $post) {
     return view('post', ['title' => 'Single Blog', 'post' => $post]);
 });
 
-Route::get('/authors/{user}', function(User $user) {
+Route::get('/authors/{user:username}', function(User $user) {
 
-    return view('post', ['title' => 'Article By ' . $user->name , 'posts' => $user->blogs]);
+    return view('blog', ['title' => count($user->blogs) . ' Articles By' . $user->name,  'blogs' => $user->blogs]);
+});
+
+Route::get('/categories/{category:slug}', function(Category $category) {
+
+    return view('blog', ['title' => count($category->blogs) . ' Articles in' . $category->name,  'blogs' => $category->blogs]);
 });
 
 Route::get('/blogs', function () {

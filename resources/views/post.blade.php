@@ -9,7 +9,13 @@
                 <h3 class="mb-2 text-2xl tracking-tight font-bold text-gray-800">{{ $post->title }}</h3>
 
             <div class="text-base text-gray-500">
-                <a href="#">{{ $post->author->name }}</a> | {{ $post->created_at->diffForHumans() }}
+                By
+                <a class="hover: underline" href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a>
+                |
+                {{ $post->created_at->diffForHumans() }} In
+                <a class="hover: underline"
+                    href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a> |
+                {{ $post->created_at->diffForHumans() }}
             </div>
             <p class="my-4 font-light">
                 {{ $post->body }}

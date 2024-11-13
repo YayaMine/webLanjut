@@ -20,11 +20,16 @@
 
     @foreach ($blogs as $blog)
         <article class="py-5 max-w-screen-md border-b border-gray-300">
-            <a href="/blog/{{ $blog->slug }}" class="hover:underline">
+            <a href="/blog/{{ $blog->slug }}" class="text-base text-gray-500 hover:underline">
                 <h3 class="mb-2 text-2xl tracking-tight font-bold text-gray-800">{{ $blog->title }}</h3>
             </a>
-            <div class="text-base text-gray-500">
-                <a class="hover: underline" href="/authors/{{ $blog->author->id }}">{{ $blog->author->name }}</a> |
+            <div class="">
+                By
+                <a class="hover: underline" href="/authors/{{ $blog->author->username }}">{{ $blog->author->name }}</a>
+                |
+                {{ $blog->created_at->diffForHumans() }} In
+                <a class="hover: underline"
+                    href="/categories/{{ $blog->category->slug }}">{{ $blog->category->name }}</a> |
                 {{ $blog->created_at->diffForHumans() }}
             </div>
             <p class="my-4 font-light">
