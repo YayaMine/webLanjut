@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
 
+
+// semua class harus memiliki namespace agar terbaca
 Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
 });
@@ -14,49 +17,15 @@ Route::get('/about', function () {
 });
 
 // wildcard
-Route::get('/blog/{slug}', function ($slug) {
-    $posts = [
-        [
-            'id' => 1,
-            'slug' => 'judul-artikel-1-dari-route',
-            'title' => 'Judul Artikel 1 dari route',
-            'author' => 'Lea Alyu',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo, dolorum aspernatur recusandae atque maiores dolorem ad officiis soluta, pariatur quibusdam eum culpa. Ducimus a ullam id omnis quas iure consequatur, perspiciatis eos quibusdam. Id a deserunt dolorum praesentium ullam, rerum quas iste alias ad magnam ipsam fugiat esse nemo. Quam!',
-        ],
-        [
-            'id' => 2,
-            'slug' => 'judul-artikel-2-dari-route',
-            'title' => 'Judul Artikel 2 dari route',
-            'author' => 'Lea Alyu',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo, dolorum aspernatur recusandae atque maiores dolorem ad officiis soluta, pariatur quibusdam eum culpa. Ducimus a ullam id omnis quas iure consequatur, perspiciatis eos quibusdam. Id a deserunt dolorum praesentium ullam, rerum quas iste alias ad magnam ipsam fugiat esse nemo. Quam!',
-        ]
-    ];
+Route::get('/blog/{slug}', function($slug) {
+   
+    $blog = Post::find($slug);
 
-    $post = Arr::first($posts, function ($post) use ($slug) {
-        return $post['slug'] == $slug;
-    });
-
-    // dd($post);
-    return view('post', ['title' => 'singel post', 'post' => $post]);
+    return view('post', ['title' => 'Single Blog', 'post' => $blog]);
 });
 
 Route::get('/blogs', function () {
-    return view('blog', ['title' => 'Blog', 'blogs' => [
-        [
-            'id' => 1,
-            'slug' => 'judul-artikel-1-dari-route',
-            'title' => 'Judul Artikel 1 dari route',
-            'author' => 'Lea Alyu',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo, dolorum aspernatur recusandae atque maiores dolorem ad officiis soluta, pariatur quibusdam eum culpa. Ducimus a ullam id omnis quas iure consequatur, perspiciatis eos quibusdam. Id a deserunt dolorum praesentium ullam, rerum quas iste alias ad magnam ipsam fugiat esse nemo. Quam!',
-        ],
-        [
-            'id' => 2,
-            'slug' => 'judul-artikel-2-dari-route',
-            'title' => 'Judul Artikel 2 dari route',
-            'author' => 'Lea Alyu',
-            'body' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo, dolorum aspernatur recusandae atque maiores dolorem ad officiis soluta, pariatur quibusdam eum culpa. Ducimus a ullam id omnis quas iure consequatur, perspiciatis eos quibusdam. Id a deserunt dolorum praesentium ullam, rerum quas iste alias ad magnam ipsam fugiat esse nemo. Quam!',
-        ]
-    ]]);
+    return view('blog', ['title' => 'Blog', 'blogs' => Post::all()]);
 });
 
 Route::get('/contact', function () {
