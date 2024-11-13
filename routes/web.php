@@ -3,17 +3,18 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', ['title' => 'Home Page']);
 });
 
 Route::get('/about', function () {
-    return view('about', ['nama' => 'Heisenberg']);
+    $nama = env('NAMA', 'Default Name');
+    return view('about', ['nama' => $nama, 'title' => 'About Page']);
 });
 
-Route::get('/blog', function () {
-    return view('blog');
+Route::get('/blogs', function () {
+    return view('blog', ['title' => 'Blog']);
 });
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('contact', ['title' => 'Contact Page']);
 });
