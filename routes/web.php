@@ -41,3 +41,4 @@ Route::get('/blogs', function () {
 Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact Page']);
 });
+// yfyu;
