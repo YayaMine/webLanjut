@@ -11,7 +11,13 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
-    protected $guarded = ['id'];  
+    protected $guarded = ['id'];
+
+    // protected $primaryKey = "id_post";
+    
+    // protected $table = "table";
+
+
 
     public function author(): BelongsTo
     {

@@ -26,16 +26,20 @@ Route::get('/blog/{post:slug}', function(Post $post) {
 
 Route::get('/authors/{user:username}', function(User $user) {
 
-    return view('blog', ['title' => count($user->blogs) . ' Articles By' . $user->name,  'blogs' => $user->blogs]);
+    $blogs = $user->blogs->load(['category', 'author']);
+
+    return view('blog', ['title' => count($blogs) . ' Articles By' . $user->name,  'blogs' => $blogs]);
 });
 
 Route::get('/categories/{category:slug}', function(Category $category) {
+    $blogs = $category->blogs->load(['category', 'author']);
 
-    return view('blog', ['title' => count($category->blogs) . ' Articles in' . $category->name,  'blogs' => $category->blogs]);
+
+    return view('blog', ['title' => count($blogs) . ' Articles in' . $category->name,  'blogs' => $blogs]);
 });
 
 Route::get('/blogs', function () {
-    return view('blog', ['title' => 'Blog', 'blogs' => Post::all()]);
+    return view('blog', ['title' => 'Blog', 'blogs' => Post::with(['author', 'category'])->latest()->get()]);
 });
 
 Route::get('/contact', function () {
